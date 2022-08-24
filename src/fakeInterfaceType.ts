@@ -18,9 +18,9 @@ export function fakeInterfaceType(params: {
     switch (name) {
       case "birthDate":
       case "dateOfBirth":
-        return faker.date.birthdate({ refDate: options.referenceDate }).toISOString();
+        return faker.date.birthdate({ refDate: options.referenceDate });
       default:
-        return faker.date.past(options.pastDateYears, options.referenceDate).toISOString();
+        return faker.date.past(options.pastDateYears, options.referenceDate);
     }
   } else {
     const targetObject: Record<string, any> = {};

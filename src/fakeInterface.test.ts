@@ -17,7 +17,9 @@ describe("fakeInterface", () => {
     const options = { ...defaultOptions, optionalRatio: 0.5, referenceDate: new Date("2022-08-18T00:00:00Z"), warning };
     const obj = fakeInterface({ node, options });
     // console.log(JSON.stringify(obj, undefined, 2));
-    expect(obj).toStrictEqual(JSON.parse(readFileSync(join(testData, "test.json"), { encoding: "utf8" })));
+    // convert to JSON and back so that Date objects are stringified
+    const jsonObj = JSON.parse(JSON.stringify(obj));
+    expect(jsonObj).toStrictEqual(JSON.parse(readFileSync(join(testData, "test.json"), { encoding: "utf8" })));
     expect(warning).toBeCalledWith("Unhandled type unknown for alwaysUnknown");
     expect(warning).toBeCalledWith("Unhandled FunctionType declaration for fn");
   });
