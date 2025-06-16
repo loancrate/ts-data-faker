@@ -1,7 +1,7 @@
 import { writeFile } from "fs/promises";
 import { InterfaceDeclaration, ModuleDeclaration, Project, SourceFile } from "ts-morph";
-import { fakeInterface } from "./fakeInterface.js";
-import { defaultOptions } from "./Options.js";
+import { fakeInterface } from "./fakeInterface";
+import { defaultOptions } from "./Options";
 
 export interface Arguments {
   sourceFile: string;

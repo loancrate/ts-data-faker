@@ -1,4 +1,4 @@
-import { lowerCaseInitial, splitCamelCase } from "./caseUtils.js";
+import { lowerCaseInitial, splitCamelCase } from "./caseUtils";
 
 export function withNameAffixes<T>(name: string, func: (affix: string) => T | undefined): T | undefined;
 export function withNameAffixes<T>(name: string, func: (affix: string) => T | undefined, fallback: () => T): T;

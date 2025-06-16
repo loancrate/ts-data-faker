@@ -1,7 +1,7 @@
 import { InterfaceDeclaration, Node } from "ts-morph";
-import { fakeTypeElementMemberedNode } from "./fakeTypeElementMemberedNode.js";
-import { ObjectContext } from "./ObjectContext.js";
-import { Options } from "./Options.js";
+import { fakeTypeElementMemberedNode } from "./fakeTypeElementMemberedNode";
+import { ObjectContext } from "./ObjectContext";
+import { Options } from "./Options";
 
 export function fakeInterface(params: {
   node: InterfaceDeclaration;
@@ -11,13 +11,14 @@ export function fakeInterface(params: {
   options: Options;
 }): Record<string, unknown> {
   const { node, propertyPath = [], targetObject = {}, objectContext = new ObjectContext(), ...rest } = params;
-  node.getBaseTypes().forEach((baseType) => {
+  for (const baseType of node.getBaseTypes()) {
     const declarations = baseType.getSymbolOrThrow().getDeclarations();
     for (const declaration of declarations) {
+      /* istanbul ignore else */
       if (Node.isInterfaceDeclaration(declaration)) {
         fakeInterface({ node: declaration, propertyPath, targetObject, objectContext, ...rest });
       }
     }
-  });
+  }
   return fakeTypeElementMemberedNode({ node, propertyPath, targetObject, objectContext, ...rest });
 }

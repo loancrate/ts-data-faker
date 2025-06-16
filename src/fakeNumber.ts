@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { ObjectContext } from "./ObjectContext.js";
-import { withNameAffixes } from "./withNameAffixes.js";
+import { ObjectContext } from "./ObjectContext";
+import { withNameAffixes } from "./withNameAffixes";
 
 export function fakeNumber({ name }: { name: string; propertyPath: string[]; objectContext: ObjectContext }): number {
   return withNameAffixes(
@@ -32,25 +32,25 @@ export function fakeNumber({ name }: { name: string; propertyPath: string[]; obj
         case "taxes":
         case "utilities":
         case "value":
-          return faker.datatype.number({ max: 10000000, precision: 0.01 });
+          return faker.number.float({ max: 10000000, fractionDigits: 2 });
         case "count":
-          return faker.datatype.number({ max: 10 });
+          return faker.number.int({ max: 10 });
         case "age":
         case "months":
         case "years":
-          return faker.datatype.number({ max: 99 });
+          return faker.number.int({ max: 99 });
         case "score":
-          return faker.datatype.number({ min: 300, max: 850 });
+          return faker.number.int({ min: 300, max: 850 });
         case "pct":
         case "percent":
         case "percentage":
-          return faker.datatype.number({ max: 1, precision: 0.0001 });
+          return faker.number.float({ max: 1, fractionDigits: 4 });
         case "apr":
         case "dti":
         case "rate":
-          return faker.datatype.number({ max: 10, precision: 0.01 });
+          return faker.number.float({ max: 10, fractionDigits: 2 });
       }
     },
-    () => faker.datatype.number({ max: 1000 })
+    () => faker.number.int({ max: 1000 })
   );
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { parse } from "ts-command-line-args";
-import { Arguments, main } from "./main.js";
+import { Arguments, main } from "./main";
 
 await main(
   parse<Arguments>(

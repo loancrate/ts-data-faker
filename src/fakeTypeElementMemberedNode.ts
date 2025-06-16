@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
 import { TypeElementMemberedNode } from "ts-morph";
-import { fakeProperty } from "./fakeProperty.js";
-import { ObjectContext } from "./ObjectContext.js";
-import { Options } from "./Options.js";
+import { fakeProperty } from "./fakeProperty";
+import { ObjectContext } from "./ObjectContext";
+import { Options } from "./Options";
 
 export function fakeTypeElementMemberedNode(params: {
   node: TypeElementMemberedNode;
@@ -30,5 +30,5 @@ export function fakeTypeElementMemberedNode(params: {
 }
 
 function random(): number {
-  return faker.datatype.float({ min: 0, max: 1, precision: 0.0001 });
+  return faker.number.float({ min: 0, max: 1, fractionDigits: 4 });
 }

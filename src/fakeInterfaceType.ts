@@ -1,9 +1,9 @@
 import { faker } from "@faker-js/faker";
 import { Node, Type } from "ts-morph";
-import { fakeInterface } from "./fakeInterface.js";
-import { fakeTypeElementMemberedNode } from "./fakeTypeElementMemberedNode.js";
-import { ObjectContext } from "./ObjectContext.js";
-import { Options } from "./Options.js";
+import { fakeInterface } from "./fakeInterface";
+import { fakeTypeElementMemberedNode } from "./fakeTypeElementMemberedNode";
+import { ObjectContext } from "./ObjectContext";
+import { Options } from "./Options";
 
 export function fakeInterfaceType(params: {
   type: Type;
@@ -20,7 +20,7 @@ export function fakeInterfaceType(params: {
       case "dateOfBirth":
         return faker.date.birthdate({ refDate: options.referenceDate });
       default:
-        return faker.date.past(options.pastDateYears, options.referenceDate);
+        return faker.date.past({ years: options.pastDateYears, refDate: options.referenceDate });
     }
   } else {
     const targetObject: Record<string, any> = {};

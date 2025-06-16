@@ -1,4 +1,4 @@
-import { splitCamelCase, lowerCaseInitial, upperCaseInitial, singularCamelCase } from "./caseUtils.js";
+import { splitCamelCase, lowerCaseInitial, upperCaseInitial, singularCamelCase } from "./caseUtils";
 
 describe("splitCamelCase", () => {
   test("camelCaseIdentifier", () => {

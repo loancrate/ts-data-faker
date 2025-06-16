@@ -1,11 +1,11 @@
 import { faker } from "@faker-js/faker";
 import { Node, Type } from "ts-morph";
-import { singularCamelCase } from "./caseUtils.js";
-import { fakeInterfaceType } from "./fakeInterfaceType.js";
-import { fakeNumber } from "./fakeNumber.js";
-import { fakeString } from "./fakeString.js";
-import { ObjectContext } from "./ObjectContext.js";
-import { Options } from "./Options.js";
+import { singularCamelCase } from "./caseUtils";
+import { fakeInterfaceType } from "./fakeInterfaceType";
+import { fakeNumber } from "./fakeNumber";
+import { fakeString } from "./fakeString";
+import { ObjectContext } from "./ObjectContext";
+import { Options } from "./Options";
 
 export function fakeProperty(params: {
   type: Type;
@@ -18,8 +18,9 @@ export function fakeProperty(params: {
   let value;
   if (type.isArray()) {
     const elementType = type.getArrayElementType();
+    /* istanbul ignore else */
     if (elementType) {
-      const length = faker.datatype.number({ min: options.arrayLengthMinimum, max: options.arrayLengthMaximum });
+      const length = faker.number.int({ min: options.arrayLengthMinimum, max: options.arrayLengthMaximum });
       const elementName = singularCamelCase(name);
       value = Array(length)
         .fill(undefined)
@@ -29,7 +30,7 @@ export function fakeProperty(params: {
             type: elementType,
             name: elementName,
             propertyPath: propertyPath.concat(String(index)),
-          })
+          }),
         );
       if (elementType.isUnion()) {
         value = [...new Set(value)];
@@ -50,14 +51,15 @@ export function fakeProperty(params: {
       .flatMap((decl) =>
         Node.isEnumDeclaration(decl)
           ? decl.getMembers().map((member) => Node.isEnumMember(member) && member.getValue())
-          : /* istanbul ignore next */ []
+          : /* istanbul ignore next */ [],
       );
-    const index = faker.datatype.number(enumValues.length - 1);
+    const index = faker.number.int(enumValues.length - 1);
     value = enumValues[index];
   } else if (type.isUnion()) {
     const types = type.getUnionTypes();
+    /* istanbul ignore else */
     if (types.length > 0) {
-      const index = faker.datatype.number(types.length - 1);
+      const index = faker.number.int(types.length - 1);
       const unionType = types[index];
       if (unionType.isLiteral()) {
         value = unionType.getLiteralValue();

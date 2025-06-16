@@ -6,18 +6,18 @@ export class NameGenerator {
   readonly lastName: string;
 
   constructor() {
-    this.firstName = faker.name.firstName();
-    this.lastName = faker.name.lastName();
+    this.firstName = faker.person.firstName();
+    this.lastName = faker.person.lastName();
   }
 
   @Memoize()
   get middleName(): string {
-    return faker.name.middleName();
+    return faker.person.middleName();
   }
 
   @Memoize()
   get suffix(): string {
-    return faker.name.suffix();
+    return faker.person.suffix();
   }
 
   get fullName(): string {
@@ -26,11 +26,11 @@ export class NameGenerator {
 
   @Memoize()
   get userName(): string {
-    return faker.internet.userName(this.firstName, this.lastName);
+    return faker.internet.username({ firstName: this.firstName, lastName: this.lastName });
   }
 
   @Memoize()
   get email(): string {
-    return faker.internet.email(this.firstName, this.lastName);
+    return faker.internet.email({ firstName: this.firstName, lastName: this.lastName });
   }
 }

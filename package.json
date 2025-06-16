@@ -13,31 +13,32 @@
   },
   "bin": "./bin/ts-data-faker.js",
   "scripts": {
-    "prepare": "husky install && npm run build",
+    "prepare": "husky",
     "prettier": "prettier --write .",
     "build": "tsc --project tsconfig.build.json",
-    "start": "ts-node src/cli.ts",
+    "start": "tsx src/cli.ts",
     "test": "jest"
   },
   "dependencies": {
-    "@faker-js/faker": "^7.4.0",
+    "@faker-js/faker": "^9.8.0",
     "pluralize": "^8.0.0",
-    "ts-command-line-args": "^2.3.1",
-    "ts-morph": "^15.1.0",
-    "typescript-memoize": "^1.1.0"
+    "ts-command-line-args": "^2.5.1",
+    "ts-morph": "^26.0.0",
+    "typescript-memoize": "^1.1.1"
   },
   "devDependencies": {
-    "@tsconfig/node16": "^1.0.2",
-    "@types/jest": "^27.4.1",
-    "@types/node": "^16.11.32",
-    "@types/pluralize": "^0.0.29",
-    "husky": "^7.0.4",
-    "jest": "^27.5.1",
-    "lint-staged": "^12.4.1",
-    "prettier": "^2.6.2",
-    "ts-jest": "^27.1.4",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.6.4"
+    "@tsconfig/node22": "^22.0.2",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.3",
+    "@types/pluralize": "^0.0.33",
+    "husky": "^9.1.7",
+    "jest": "^30.0.0",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.5.3",
+    "ts-jest": "^29.4.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
   },
   "lint-staged": {
     "*.{ts,md}": "prettier --write --ignore-unknown"

@@ -2,8 +2,8 @@ import { faker } from "@faker-js/faker";
 import { readFileSync } from "fs";
 import { dirname, join } from "path";
 import { Project } from "ts-morph";
-import { fakeInterface } from "./fakeInterface.js";
-import { defaultOptions } from "./Options.js";
+import { fakeInterface } from "./fakeInterface";
+import { defaultOptions, Options } from "./Options";
 
 const testData = join(dirname(__dirname), "test-data");
 
@@ -14,13 +14,16 @@ describe("fakeInterface", () => {
     const node = source.getInterfaceOrThrow("Profile");
     faker.seed(42);
     const warning = jest.fn(/* (message) => console.log(message) */);
-    const options = { ...defaultOptions, optionalRatio: 0.5, referenceDate: new Date("2022-08-18T00:00:00Z"), warning };
+    const options: Options = {
+      ...defaultOptions,
+      arrayLengthMinimum: 2,
+      optionalRatio: 0.5,
+      referenceDate: new Date("2022-08-18T00:00:00Z"),
+      warning,
+    };
     const obj = fakeInterface({ node, options });
-    // console.log(JSON.stringify(obj, undefined, 2));
-    // convert to JSON and back so that Date objects are stringified
-    const jsonObj = JSON.parse(JSON.stringify(obj));
-    expect(jsonObj).toStrictEqual(JSON.parse(readFileSync(join(testData, "test.json"), { encoding: "utf8" })));
-    expect(warning).toBeCalledWith("Unhandled type unknown for alwaysUnknown");
-    expect(warning).toBeCalledWith("Unhandled FunctionType declaration for fn");
+    expect(obj).toMatchSnapshot();
+    expect(warning).toHaveBeenCalledWith("Unhandled type unknown for alwaysUnknown");
+    expect(warning).toHaveBeenCalledWith("Unhandled FunctionType declaration for fn");
   });
 });

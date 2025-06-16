@@ -1,5 +1,5 @@
 import { Memoize } from "typescript-memoize";
-import { NameGenerator } from "./NameGenerator.js";
+import { NameGenerator } from "./NameGenerator";
 
 export class ObjectContext {
   @Memoize()

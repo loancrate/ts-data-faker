@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
-import { upperCaseInitial } from "./caseUtils.js";
-import { ObjectContext } from "./ObjectContext.js";
-import { withNameAffixes } from "./withNameAffixes.js";
+import { upperCaseInitial } from "./caseUtils";
+import { ObjectContext } from "./ObjectContext";
+import { withNameAffixes } from "./withNameAffixes";
 
 export function fakeString({
   name,
@@ -17,10 +17,10 @@ export function fakeString({
     (affix) => {
       switch (affix) {
         case "id":
-          return faker.datatype.uuid();
+          return faker.string.uuid();
         case "identifier":
         case "productCode":
-          return faker.random.alphaNumeric(6, { casing: "upper" });
+          return faker.string.alphanumeric({ length: 6, casing: "upper" });
         case "fullName":
           return objectContext.nameGenerator.fullName;
         case "firstName":
@@ -36,28 +36,28 @@ export function fakeString({
         case "email":
           return objectContext.nameGenerator.email;
         case "title":
-          return faker.name.jobTitle();
+          return faker.person.jobTitle();
         case "street1":
-          return faker.address.streetAddress();
+          return faker.location.streetAddress();
         case "street2":
-          return faker.address.secondaryAddress();
+          return faker.location.secondaryAddress();
         case "city":
-          return faker.address.cityName();
+          return faker.location.city();
         case "stateCode":
         case "provinceCode":
-          return faker.address.stateAbbr();
+          return faker.location.state({ abbreviated: true });
         case "zipCode":
-          return faker.address.zipCode();
+          return faker.location.zipCode();
         case "countyName":
-          return faker.address.county();
+          return faker.location.county();
         case "countyFipsCode":
-          return faker.random.numeric(5, { allowLeadingZeros: true });
+          return faker.string.numeric({ length: 5, allowLeadingZeros: true });
         case "countryName":
-          return faker.address.country();
+          return faker.location.country();
         case "phoneNumber":
           return faker.phone.number();
         case "phoneExtension":
-          return faker.random.numeric();
+          return faker.string.numeric({ length: { min: 1, max: 4 }, allowLeadingZeros: true });
         case "ipAddress":
           return faker.internet.ip();
         case "bureau":
@@ -66,7 +66,7 @@ export function fakeString({
         case "productName":
           return faker.commerce.productName();
         case "name":
-          return faker.random.words();
+          return faker.word.words();
         case "status":
           return upperCaseInitial(faker.word.adjective());
         case "type":
@@ -78,16 +78,16 @@ export function fakeString({
         case "text":
           return faker.lorem.sentences();
         case "accountNumber":
-          return faker.finance.account();
+          return faker.finance.accountNumber();
         case "language":
           return faker.helpers.arrayElement(["English", "Spanish", "French", "Latin"]);
         case "value":
           if (propertyPath[propertyPath.length - 2] === "taxpayerIdentification") {
-            return faker.random.numeric(9, { allowLeadingZeros: true });
+            return faker.string.numeric({ length: 9, allowLeadingZeros: true });
           }
           break;
       }
     },
-    () => faker.lorem.words()
+    () => faker.lorem.words(),
   );
 }
